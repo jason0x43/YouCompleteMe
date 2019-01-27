@@ -1264,3 +1264,10 @@ def VimVersionAtLeast( version_string ):
     return actual_major_and_minor > matching_major_and_minor
 
   return GetBoolValue( "has( 'patch{0}' )".format( patch ) )
+
+
+def ExpandSnippet( snippet, trigger_string ):
+  if vim.eval( 'exists( "+UltiSnips#Anon" )' ):
+    vim.eval( "UltiSnips#Anon( '{}', '{}', 'unused description', 'i' )".format(
+      EscapeForVim( snippet ),
+      EscapeForVim( trigger_string ) ) )
